@@ -26,7 +26,6 @@ export default {
       let result = response.data;
       if (result.errno === ERR_OK) {
         this.seller = result.data;
-        console.log(this.seller);
       }
     });
   }
