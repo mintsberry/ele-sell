@@ -10,20 +10,9 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### 工具
 
-### Run your tests
-```
-npm run test
-```
+[Css样式重置](https://meyerweb.com/eric/tools/css/reset/)  
+[SVG转换Fonts](https://icomoon.io/)
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
