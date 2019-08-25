@@ -13,7 +13,7 @@
           {{seller.description}}/{{seller.deliveryTime}}分钟送达
         </div>
         <div v-if="seller.supports" class="support">
-          <span class="icon" :class="classMap[seller.supports[0].type]"></span>
+          <Activitiesicon :size="1" :type="seller.supports[0].type"></Activitiesicon>
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
 
@@ -40,25 +40,18 @@
             <div class="star-wrapper">
               <star :score="seller.score" :size="48"></star>
             </div>
-            <div class="title">
-              <div class="line"></div>
-              <div class="text">优惠信息</div>
-              <div class="line"></div>
-            </div>
+            <OverlayHeader :text="'优惠信息'"></OverlayHeader>
             <ul v-if="seller.supports" class="supports">
               <li class="support-item" v-for="(item,index) in seller.supports" :key="index">
-                <span class="icon" :class="classMap[item.type]"></span>
+                <Activitiesicon :size="2" :type="item.type"></Activitiesicon>
                 <span class="text" >{{item.description}}</span>
               </li>
             </ul>
-            <div class="title">
-              <div class="line"></div>
-              <div class="text">商家公告</div>
-              <div class="line"></div>
-            </div>
+            <OverlayHeader :text="'商家公告'"></OverlayHeader>
             <div class="bulletin">
               <p class="content">{{seller.bulletin}}</p>
             </div>
+            
           </div>
         </div>
         <div class="detail-close" @click="hideDetail">
@@ -71,9 +64,13 @@
 
 <script>
   import Star from '../../components/star/Star'
+  import OverlayHeader from '../../components/overlay/OverlayHeader'
+  import Activitiesicon from '../../components/activitiesIcon/Activitiesicon'
   export default {
     components: {
-      Star
+      Star,
+      OverlayHeader,
+      Activitiesicon
     },
     props:[
       'seller'
@@ -142,24 +139,6 @@
           line-height 12px
           font-size 12px
         .support
-          .icon
-            display inline-block
-            vertical-align middle
-            width 12px
-            height 12px
-            margin-right 4px
-            background-size 12px
-            background-repeat no-repeat
-            &.decrease
-              background-image url('decrease_1@2x.png')
-            &.discount
-              background-image url('discount_1@2x.png')
-            &.guarantee
-              background-image url('guarantee_1@2x.png')
-            &.invoice
-              background-image url('invoice_1@2x.png')
-            &.special
-              background-image url('special_1@2x.png')
           .text
             display inline-block
             vertical-align middle
@@ -251,19 +230,6 @@
             margin-top 18px
             padding 2px 0
             text-align center
-          .title
-            display flex
-            width 80%
-            margin 28px auto 24px auto
-            .line
-              flex 1
-              position relative
-              top -6px
-              border-bottom 1px solid rgba(255,255,255,0.2)
-            .text
-              padding 0 12px
-              font-size  14px
-              font-weight 7
           .supports
             width 80%
             margin 0 auto
@@ -274,23 +240,11 @@
               &:last-child
                 margin-bottom 0
               .icon
-                display inline-block
                 width 16px
                 height 16px
-                vertical-align middle
                 margin-right 6px
                 background-size 16px 16px
                 background-repeat  no-repeat
-                &.decrease
-                  background-image url('decrease_2@2x.png')
-                &.discount
-                  background-image url('discount_2@2x.png')
-                &.guarantee
-                  background-image url('guarantee_2@2x.png')
-                &.invoice
-                  background-image url('invoice_2@2x.png')
-                &.special
-                  background-image url('special_2@2x.png')
               .text
                 vertical-align middle
                 line-height 12px

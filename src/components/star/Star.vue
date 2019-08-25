@@ -15,7 +15,7 @@
     props: [
       'size',
       'score'
-     ],
+    ],
     data() {
       return {};
     },
