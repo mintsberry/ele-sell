@@ -78,7 +78,7 @@
     data () {
       return {
         classMap: [],
-        detailShow: false
+        detailShow: false,
       };
     },
     computed: {
@@ -215,6 +215,7 @@
       &.detail-leave-to
         opacity 0
         background rgba(7,17,27,0);
+        transform translateY(30px)
       .detail-wrapper
         min-height 100%
         width 100%

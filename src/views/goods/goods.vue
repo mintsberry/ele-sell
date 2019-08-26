@@ -33,40 +33,59 @@
                   <span class="now">￥{{food.price}}</span>
                   <span v-show="food.oldPrice" class="old">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <CartController :food="food"></CartController>
+                </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
+    <ShopCart :select-foods='selectFoods' :delivery-price='seller.deliveryPrice' :min-price='seller.minPrice'></ShopCart>
   </div>
 </template>
 
 <script>
   const ERR_OK = 0;
   import Activitiesicon from '../../components/activitiesIcon/Activitiesicon'
+  import CartController from '../../components/cartcontroller/CartController'
+  import ShopCart from './ShopCart'
   import BScroll from 'better-scroll'
   export default {
     components: {
-      Activitiesicon
+      Activitiesicon,
+      ShopCart,
+      CartController
     },
     
     props:[
       'seller',
-
     ],
 
     data () {
-      return {
+      return { 
         goods: [],
         listHeight: [],
         scrollY: 0,
         foodsScroll: {},
-        currentIndex: 0
+        currentIndex: 0,
+        sellerInfo : this.seller
       };
     },
 
     computed: {
+      selectFoods(){
+        let foods = [];
+        this.goods.forEach(element => {
+          element.foods.forEach(element => {
+            if (element.count > 0){
+              foods.push(element)
+            }
+          });
+        });
+        return foods;
+      }
     },
 
     watch:{
@@ -107,6 +126,7 @@
           click: true
         });
         this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+          click: true,
           probeType: 3
         });
         this.foodsScroll.on('scroll',pos => {
@@ -216,4 +236,8 @@
               text-decoration line-through
               font-size 10px
               color #999
+          .cartcontrol-wrapper
+            position absolute
+            right 0
+            bottom 12px
 </style>
