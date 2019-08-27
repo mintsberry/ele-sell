@@ -33,12 +33,13 @@
     },
 
     methods: {
-      addCart(){
+      addCart(event){
         if (!this.food.count){
           this.$set(this.food, 'count', 1);
         } else {
           this.food.count++;
         }
+        this.$emit('drop', event)
       },
       decreaseCart(){
         if(this.food.count) {

@@ -18,9 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="ball-container">
 
-    </div>
   </div>
 </template>
 
@@ -46,8 +44,8 @@
 
     data () {
       return {
-        balls:
-      };
+      
+      }
     },
 
     computed: {
@@ -174,4 +172,5 @@
           &.enough
             background #00b43c
             color: #fff
+
 </style>
