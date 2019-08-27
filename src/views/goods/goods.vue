@@ -43,22 +43,19 @@
       </ul>
     </div>
     <ShopCart :select-foods='selectFoods' :delivery-price='seller.deliveryPrice' :min-price='seller.minPrice'></ShopCart>
-
-      <div class="ball-container">
-
-          <div  v-for="(ball, index) in balls" :key="index">
-            <transition name="drop"
-            @before-enter="beforeEnter"
-            @enter = "enter"
-            @after-enter="afterEnter"
-            >
-              <div class="ball" v-show="ball.show">
-                <div class="inner inner-hook"></div>
-              </div>
-            </transition>
+    <div class="ball-container">
+      <div  v-for="(ball, index) in balls" :key="index">
+        <transition name="drop"
+        @before-enter="beforeEnter"
+        @enter = "enter"
+        @after-enter="afterEnter"
+        >
+          <div class="ball" v-show="ball.show">
+            <div class="inner inner-hook"></div>
           </div>
+        </transition>
       </div>
-
+    </div>
   </div>
 </template>
 
@@ -194,7 +191,6 @@
         el.style.transform = el.style.webkitTransform = `translate3d(0,${y}px,0)`;
         let inner = el.getElementsByClassName('inner-hook')[0];
         inner.style.transform = inner.style.webkitTransform = `translate3d(${x}px,0,0)`;
-        console.log(inner)
 
       },
       enter(el,done){
@@ -314,11 +310,11 @@
         left 32px
         bottom 22px
         z-index 200
-        transition all 0.7s cubic-bezier(0,-0.63,1,.3) 
+        transition all 0.5s cubic-bezier(0,-0.48,1,.44)
         .inner
           width 16px
           height 16px
           border-radius 50%
           background rgb(0,160,220)
-          transition: all 0.7s cubic-bezier(0, 0, 0, 0);
+          transition: all 0.5s cubic-bezier(0, 0, 0, 0);
 </style>
