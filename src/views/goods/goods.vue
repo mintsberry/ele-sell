@@ -16,7 +16,7 @@
         <li class="food-list food-list-hook" v-for="(item,index) in goods" :key="index">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li class="food-item border-1px" v-for="(food, index) in item.foods" :key="index">
+            <li class="food-item border-1px" v-for="(food, index) in item.foods" :key="index" @click="selectFood(food)">
               <div class="icon">
                 <img width="57" height="57" :src="food.icon" alt="">
               </div>
@@ -56,6 +56,7 @@
         </transition>
       </div>
     </div>
+    <Food :food="selectedFood" ref='food'></Food>
   </div>
 </template>
 
@@ -63,13 +64,15 @@
   const ERR_OK = 0;
   import Activitiesicon from '../../components/activitiesIcon/Activitiesicon'
   import CartController from '../../components/cartcontroller/CartController'
+  import Food from "../food/Food"
   import ShopCart from './ShopCart'
   import BScroll from 'better-scroll'
   export default {
     components: {
       Activitiesicon,
       ShopCart,
-      CartController
+      CartController,
+      Food
     },
     
     props:[
@@ -85,6 +88,7 @@
         currentIndex: 0,
         sellerInfo : this.seller,
         dropballs: [],
+        selectedFood: {},
         balls: [
           {
             show: false
@@ -150,6 +154,10 @@
         let foodsList = this.$refs.foodsWrapper.getElementsByClassName("food-list-hook");
         let el = foodsList[index];
         this.foodsScroll.scrollToElement(el, 300);
+      },
+      selectFood(food,event){
+        this.selectedFood = food;
+        this.$refs.food.show();
       },
       drop(el){
         this.balls.some(ball => {
