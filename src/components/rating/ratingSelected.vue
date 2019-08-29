@@ -1,19 +1,19 @@
 <template>
-  <div class="rating-select">
+  <div class="rating-select" v-if="ratings">
     <div class="rating-type border-1px" >
-      <span class="block positive" :class="{ active: selected === 2}" @click="select(2)">
+      <span class="block positive" :class="{ active: selectType === 2}" @click="select(2)">
         {{desc.all}}
         <span class="count">
           {{ratings.length}}
         </span>
       </span>
-      <span class="block positive" :class="{ active: selected === 0}" @click="select(0)">
+      <span class="block positive" :class="{ active: selectType === 0}" @click="select(0)">
         {{desc.positive}}
         <span class="count">
           {{positivesContent.length}}
         </span>
       </span>
-      <span class="block negative" :class="{ active: selected === 1}" @click="select(1)">
+      <span class="block negative" :class="{ active: selectType === 1}" @click="select(1)">
         {{desc.negative}}
         <span class="count">
           {{negativesContent.length}}
@@ -21,7 +21,7 @@
       </span>
     </div>
     <div class="switch" @click="toggleContent">
-      <span class="icon-check_circle" :class="{'on':isContent}"></span>
+      <span class="icon-check_circle" :class="{'on':onlyContent}"></span>
       <span class="text">只看有内容的评价</span>
     </div>
   </div>
@@ -66,8 +66,6 @@
 
     data () {
       return {
-        selected: this.selectType,
-        isContent: this.onlyContent
       };
     },
 
@@ -86,10 +84,10 @@
 
     methods: {
       select(type){
-        this.selected = type;
+        this.$emit('selected',type);
       },
       toggleContent(){
-        this.isContent = !this.isContent
+        this.$emit('only-content');
       }
     },
 

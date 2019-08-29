@@ -35,7 +35,26 @@
         <Split></Split>
         <div class="rating">
           <div class="title">商品评价</div>
-          <RatingSelected :select-type="selectType" :only-content="onlyContent" :desc="desc" :ratings="food.ratings"></RatingSelected>
+          <RatingSelected :select-type="selectType" :only-content="onlyContent" :desc="desc" :ratings="food.ratings" @only-content="toggleContent" @selected="selected"></RatingSelected>
+          <div class="rating-wrapper  border-1px">
+            <ul v-if="food.ratings && food.ratings.length !== 0">
+              <li v-show="needShow(rating.rateType,rating.text)" class="rating-item" v-for="(rating, index) in food.ratings" :key="index">
+                <div class="user">
+                  <span class="name">{{rating.username}}</span>
+                  <img class="avatar" :src="rating.avatar" width="12" height="12"  alt="">
+                </div>
+                <div class="time">{{rating.rateTime | formatDate}}</div>
+                <p class="text">
+                  <span :class="{ 'icon-thumb_up': rating.rateType === 0,'icon-thumb_down': rating.rateType === 1 }">
+                  </span>
+                  {{rating.text}}
+                </p>
+              </li>
+            </ul>
+            <div class="no-rating" v-if="food.ratings && !food.ratings.length">
+              暂无评价
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -48,6 +67,7 @@
   import CartController from '../../components/cartcontroller/CartController'
   import Split from '../../components/split/Split.vue'
   import RatingSelected from '../../components/rating/RatingSelected.vue'
+  import {formatDate} from '../../assets/js/date'
   export default {
     components: {
       CartController,
@@ -97,15 +117,39 @@
       hide() {
         this.showFlag = false;
       },
+      toggleContent(){
+        this.onlyContent = !this.onlyContent
+      },
+      selected(type){
+        this.selectType = type;
+      },
       addFirst() {
         if (!this.food.count || this.food.count === 0){
           this.$set(this.food, 'count', 1);
         }
+      },
+      needShow(type, text) {
+        if (this.onlyContent && !text){
+          return false;
+        }
+        if (this.selectType == ALL){
+          return true;
+        } else {
+          return type === this.selectType;
+        }
+      }
+    },
+    filters: {
+      formatDate(time) {
+        let date = new Date(time);
+        return formatDate(date,'yyyy-MM-dd hh:mm');
       }
     }
   }
 </script>
 <style lang='stylus' scoped> 
+  @import '../../assets/stylus/mixin.stylus'
+
   .food
     position fixed
     left: 0
@@ -218,5 +262,48 @@
         margin-left 18px
         font-size 14px
         color rgb(7, 17, 27)
+    .rating-wrapper
+      padding 0 18px
+      .rating-item
+        position relative
+        padding 16px 0
+        border-1px(rgba(7,17,27,.1))
+        .user 
+          position absolute
+          right 0
+          top 16px
+          font-size 0
+          line-height 12px
+          .name 
+            display inline-block
+            margin-right 6px
+            vertical-align top
+            font-size 10px
+            color rgb(147,153,159)
+          .avater
+            border-radius 50%
+        .time
+          margin-bottom 6px
+          line-height 12px
+          font-size 10px
+          color rgb(147,153,159)
+        .text
+          line-height 16px
+          font-size 12px
+          color rgb(7,17,27)
+          .icon-thumb_up,
+          .icon-thumb_down
+            margin-right 4px
+            line-height 16px
+            font-size 12px
+          .icon-thumb_up
+            color rgb(0,160,220)
+          .icon-thumb_down
+            color rgb(147,153,159)
+      .no-rating
+        padding 16px 0
+        font-size 12px
+        color rgb(147,153,159)
+
 
 </style>
