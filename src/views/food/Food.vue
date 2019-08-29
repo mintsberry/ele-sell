@@ -66,7 +66,7 @@
   import BScroll from 'better-scroll'
   import CartController from '../../components/cartcontroller/CartController'
   import Split from '../../components/split/Split.vue'
-  import RatingSelected from '../../components/rating/RatingSelected.vue'
+  import RatingSelected from '../../components/ratingSelected/RatingSelected.vue'
   import {formatDate} from '../../assets/js/date'
   export default {
     components: {
