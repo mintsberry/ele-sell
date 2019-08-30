@@ -96,7 +96,7 @@
       }
     }
   }
- 
+
 </script>
 <style lang="stylus" scoped>
 @import '../../assets/stylus/mixin.stylus';

@@ -69,4 +69,15 @@
         background-image url('invoice_3@2x.png')
       &.special
         background-image url('special_3@2x.png')
+    &.icon-4
+      &.decrease
+        background-image url('decrease_4@2x.png')
+      &.discount
+        background-image url('discount_4@2x.png')
+      &.guarantee
+        background-image url('guarantee_4@2x.png')
+      &.invoice
+        background-image url('invoice_4@2x.png')
+      &.special
+        background-image url('special_4@2x.png')
 </style>
