@@ -28,6 +28,10 @@
             </div>
           </li>
         </ul>
+        <div class="favorite" @click="toggleFavorite">
+          <span class="icon-favorite" :class="{ 'active': favorite }"></span>
+          <span class="text">{{favoriteText}}</span>
+        </div>
       </div>
       <Split></Split>
       <div class="bulletin">
@@ -71,6 +75,7 @@
   import Split from '../../components/split/Split.vue'
   import Activitiesicon from '../../components/activitiesIcon/Activitiesicon'
   import BScroll from 'better-scroll'
+  import {saveToLocal,loadFromLocal} from '../../assets/js/store'
   export default {
     components: {
       Star,
@@ -87,11 +92,16 @@
     data () {
       return {
         classMap: ['decrease', 'discount', 'special', 'invoice', 'guarantee'],
+        favorite: (()=>{
+          return loadFromLocal(1, 'favorite', false);
+        })(),
       };
     },
 
     computed: {
-      
+      favoriteText(){
+        return this.favorite? '已收藏' : '未收藏';
+      }
     },
 
     watch: {
@@ -101,7 +111,6 @@
           let margin = 6 
           let width = (picWidth + margin) * this.seller.pics.length - margin;
           this.$refs.picList.style.width = width + "px";
-          console.log(this.$refs.picList);
           this.$nextTick(()=>{
             this.picScroll = new BScroll(this.$refs.picWrapper, {
               scrollX: true,
@@ -116,11 +125,13 @@
       this.scroll = new BScroll(this.$refs.seller,{
         click: true
       })
-    
     },
 
     methods: {
-      
+      toggleFavorite(){
+        this.favorite = !this.favorite
+        saveToLocal(1, 'favorite', this.favorite)
+      }
     },
 
 }
@@ -177,6 +188,23 @@
             columns rgb(7,17,27)
             .stress
               font-size 24px
+      .favorite
+        position absolute
+        right 18px
+        top 10px
+        text-align center
+        .icon-favorite
+          display block
+          margin-bottom 4px
+          line-height 24px
+          color #d4d5d6
+          font-size 24px
+          &.active
+            color rgb(240,20,20)
+        .text
+          line-height 10px
+          font-size 10px
+          color rgb(77,85,93)
     .bulletin
       padding 18px 18px 0 18px
       .title
