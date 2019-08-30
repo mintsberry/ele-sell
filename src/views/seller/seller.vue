@@ -42,6 +42,17 @@
           <span class="text" >{{item.description}}</span>
         </li>
       </ul>
+      <Split></Split>
+      <div class="pics">
+        <div class="title">商家实景</div>
+        <div class="pic-wrapper"  ref="picWrapper">
+          <ul class="pic-list" ref="picList">
+            <li class="pic-item" v-for="(pic, index) in seller.pics" :key='index'>
+              <img :src="pic" width="120" height="90" alt="">
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>  
 </template>
@@ -66,7 +77,7 @@
 
     data () {
       return {
-        classMap: ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+        classMap: ['decrease', 'discount', 'special', 'invoice', 'guarantee'],
       };
     },
 
@@ -74,10 +85,29 @@
       
     },
 
+    watch: {
+      seller(){
+        if (this.seller.pics){
+          let picWidth = 120;
+          let margin = 6 
+          let width = (picWidth + margin) * this.seller.pics.length - margin;
+          this.$refs.picList.style.width = width + "px";
+          console.log(this.$refs.picList);
+          this.$nextTick(()=>{
+            this.picScroll = new BScroll(this.$refs.picWrapper, {
+              scrollX: true,
+              eventPassthrough: 'vertical'
+            })
+          })
+        }
+      }
+    },
+
     mounted(){
       this.scroll = new BScroll(this.$refs.seller,{
         click: true
       })
+    
     },
 
     methods: {
@@ -168,4 +198,25 @@
           vertical-align middle
           font-size 12px
           color rgb(7,17,27)
+    .pics
+      padding 18px
+      .title
+        margin-bottom 12px
+        line-height 8px
+        color rgb(7,17,27)
+        font-size 14px
+        font-weight 700
+      .pic-wrapper
+        width: 100%
+        overflow hidden
+        white-space nowrap
+        .pic-list
+          font-size 0
+          .pic-item
+            display inline-block
+            margin-right 6px
+            width 120px
+            height 90px
+            &:last-child
+              margin 0
 </style>
