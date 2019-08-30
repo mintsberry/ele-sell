@@ -134,4 +134,17 @@ methods: {
   }
 }
 ```
+#### 移动端一像素问题
+```
+border-1px($color)
+  position relative
+  &:after
+      display block
+      position absolute
+      left 0
+      bottom 0
+      width 100%
+      border-top 1px solid $color
+      content: ' 
+```
 
