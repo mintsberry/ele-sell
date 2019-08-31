@@ -10,6 +10,9 @@ npm install
 npm run serve
 ```
 
+### 项目预览
+[ele-sell](https://mintsberry.github.io/ele-sell/#/seller)
+
 ### 工具
 
 [Css样式重置](https://meyerweb.com/eric/tools/css/reset/)  
